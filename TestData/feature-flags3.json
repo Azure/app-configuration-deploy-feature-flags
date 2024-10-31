@@ -1,0 +1,39 @@
+{
+  "feature_management": {
+    "feature_flags": [
+      {
+        "id": "admin_prompt",
+        "enabled": true,
+        "variants": [
+          {
+            "name": "professional",
+            "configuration_value": "professional"
+          },
+          {
+            "name": "tactful",
+            "configuration_value": "tactful"
+          }
+        ],
+        "allocation": {
+          "percentile": [
+            {
+              "variant": "professional",
+              "from": 0,
+              "to": 50
+            },
+            {
+              "variant": "tactful",
+              "from": 50,
+              "to": 100
+            }
+          ],
+          "default_when_enabled": "professional",
+          "default_when_disabled": "professional"
+        },
+        "telemetry": {
+          "enabled": true
+        }
+      }
+    ]
+  }
+}

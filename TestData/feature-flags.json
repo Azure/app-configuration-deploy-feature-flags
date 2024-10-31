@@ -1,0 +1,80 @@
+{
+  "feature_management": {
+    "feature_flags": [
+      {
+        "id": "system_prompt",
+        "enabled": true,
+        "variants": [
+          {
+            "name": "professional",
+            "configuration_value": "professional"
+          },
+          {
+            "name": "tactful",
+            "configuration_value": "tactful"
+          }
+        ],
+        "allocation": {
+          "percentile": [
+            {
+              "variant": "professional",
+              "from": 0,
+              "to": 50
+            },
+            {
+              "variant": "tactful",
+              "from": 50,
+              "to": 100
+            }
+          ],
+          "default_when_enabled": "professional",
+          "default_when_disabled": "professional"
+        },
+        "telemetry": {
+          "enabled": true
+        }
+      },
+      {
+        "id": "TestfeatureFlag005",
+        "enabled": true,
+        "variants": [
+          {
+            "name": "Off",
+            "configuration_value": false
+          },
+          {
+            "name": "On",
+            "configuration_value": true
+          }
+        ],
+        "allocation": {
+          "percentile": [
+            {
+              "variant": "Off",
+              "from": 0,
+              "to": 100
+            }
+          ],
+          "group": [
+            {
+              "variant": "On",
+              "groups": ["group1"]
+            }
+          ],
+          "user": [
+            {
+              "variant": "On",
+              "users": ["user-1"]
+            }
+          ],
+          "seed": "10",
+          "default_when_enabled": "Off",
+          "default_when_disabled": "Off"
+        },
+        "telemetry": {
+          "enabled": true
+        }
+      }
+    ]
+  }
+}

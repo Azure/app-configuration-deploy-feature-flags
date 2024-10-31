@@ -1,0 +1,15 @@
+# Run Component Governance to detect open source components
+
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: npmAuthenticate@0
+    inputs:
+      workingFile: .azure-devops/.npmrc
+
+  - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+    displayName: 'CG Component Detection'

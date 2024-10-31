@@ -1,0 +1,39 @@
+{
+  "feature_management": {
+    "feature_flags": [
+      {
+        "id": "NewFlagv2",
+        "enabled": false,
+        "variants": [
+          {
+            "name": "gpt-4o",
+            "configuration_value": {}
+          },
+          {
+            "name": "gpt-35",
+            "configuration_value": {}
+          }
+        ],
+        "allocation": {
+          "percentile": [
+            {
+              "variant": "gpt-4o123",
+              "from": 0,
+              "to": 50
+            },
+            {
+              "variant": "gpt-35",
+              "from": 50,
+              "to": 100
+            }
+          ],
+          "default_when_enabled": "gpt-35123",
+          "default_when_disabled": "gpt-35"
+        },
+        "telemetry": {
+          "enabled": true
+        }
+      }
+    ]
+  }
+}

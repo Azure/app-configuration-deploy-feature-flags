@@ -1,0 +1,50 @@
+{
+  "feature_management": {
+    "feature_flags": [
+      {
+        "id": "abc"
+      },
+      {
+        "id": "NewFlagv2",
+        "enabled": "invalid"
+      },
+      {
+        "id": "OpenAIConfig"
+      },
+      {
+        "id": "TestVariants",
+        "description": "",
+        "enabled": true,
+        "variants": [
+          {
+            "name": "Off",
+            "configuration_value": false
+          },
+          {
+            "name": "On",
+            "configuration_value": true
+          }
+        ],
+        "allocation": {
+          "percentile": [
+            {
+              "variant": "Off",
+              "from": 0,
+              "to": 50
+            },
+            {
+              "variant": "On",
+              "from": 50,
+              "to": 100
+            }
+          ],
+          "default_when_enabled": "Off",
+          "default_when_disabled": "Off"
+        },
+        "telemetry": {
+          "enabled": true
+        }
+      }
+    ]
+  }
+}

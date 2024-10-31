@@ -1,0 +1,88 @@
+name: Continuous Integration
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test-typescript:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Dependencies
+        id: npm-ci
+        run: npm ci
+
+      - name: Check Format
+        id: npm-format-check
+        run: npm run format:check
+
+      - name: Test
+        id: npm-ci-test
+        run: npm run ci-test
+
+  test-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login using Federated Credentials
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: Test Local Action
+        id: test-action
+        uses: ./
+        with:
+          path: TestData/*.json
+          app-configuration-endpoint: ${{ vars.APP_CONFIGURATION_ENDPOINT }}
+          strict: true
+
+      - name: Test Local Action file path
+        id: test-action-2
+        uses: ./
+        with:
+          path: |
+            TestData/feature-flags.json
+            TestData/feature-flags2.json
+          app-configuration-endpoint: ${{ vars.APP_CONFIGURATION_ENDPOINT }}
+          strict: true
+
+      - name: Test Local Action file path 3
+        id: test-action-3
+        uses: ./
+        with:
+          path: |
+            TestData/*.json
+            !TestData/feature-flags3.json
+          app-configuration-endpoint: ${{ vars.APP_CONFIGURATION_ENDPOINT }}
+          strict: true

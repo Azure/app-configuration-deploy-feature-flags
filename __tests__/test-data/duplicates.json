@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "2.0.0",
+  "featureFlags": [
+    {
+      "id": "NewFlagv2",
+      "enabled": false,
+      "variants": [
+        {
+          "name": "gpt-4o",
+          "configuration_value": {}
+        },
+        {
+          "name": "gpt-35",
+          "configuration_value": {}
+        }
+      ],
+      "allocation": {
+        "percentile": [
+          {
+            "variant": "gpt-4o",
+            "from": 0,
+            "to": 50
+          },
+          {
+            "variant": "gpt-35",
+            "from": 50,
+            "to": 100
+          }
+        ],
+        "default_when_enabled": "gpt-35",
+        "default_when_disabled": "gpt-35"
+      },
+      "telemetry": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "OpenAIConfig",
+      "description": "",
+      "enabled": true,
+      "variants": [
+        {
+          "name": "gpt-4o",
+          "configuration_value": {
+            "model": "gpt-4o"
+          }
+        },
+        {
+          "name": "djfdaksd",
+          "configuration_value": {}
+        }
+      ],
+      "allocation": {
+        "percentile": [
+          {
+            "variant": "gpt-4o",
+            "from": 0,
+            "to": 50
+          },
+          {
+            "variant": "djfdaksd",
+            "from": 50,
+            "to": 100
+          }
+        ],
+        "default_when_enabled": "djfdaksd",
+        "default_when_disabled": "djfdaksd"
+      },
+      "telemetry": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "TestNewModel",
+      "description": "",
+      "enabled": true,
+      "variants": [
+        {
+          "name": "New-gpt-4o",
+          "configuration_value": "gpt-4o"
+        },
+        {
+          "name": "Original-gpt-4",
+          "configuration_value": "gpt-4"
+        }
+      ],
+      "allocation": {
+        "percentile": [
+          {
+            "variant": "New-gpt-4o",
+            "from": 0,
+            "to": 50
+          },
+          {
+            "variant": "Original-gpt-4",
+            "from": 50,
+            "to": 100
+          }
+        ],
+        "default_when_enabled": "Original-gpt-4",
+        "default_when_disabled": "Original-gpt-4"
+      },
+      "telemetry": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "TestVariants",
+      "description": "",
+      "enabled": true,
+      "variants": [
+        {
+          "name": "Off",
+          "configuration_value": false
+        },
+        {
+          "name": "On",
+          "configuration_value": true
+        }
+      ],
+      "allocation": {
+        "percentile": [
+          {
+            "variant": "Off",
+            "from": 0,
+            "to": 50
+          },
+          {
+            "variant": "On",
+            "from": 50,
+            "to": 100
+          }
+        ],
+        "default_when_enabled": "Off",
+        "default_when_disabled": "Off"
+      },
+      "telemetry": {
+        "enabled": true
+      }
+    }
+  ]
+}

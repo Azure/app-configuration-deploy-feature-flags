@@ -1,0 +1,30 @@
+name: 'Azure App Configuration Deploy Feature Flags'
+description:
+  'Deploy feature flags from a GitHub repository to Azure App Configuration'
+author: 'Microsoft'
+
+branding:
+  icon: 'heart'
+  color: 'red'
+
+inputs:
+  path:
+    description:
+      'Source file(s) containing feature flags. Multiple files can be specified
+      in list or glob format. Example: **/*.json or FeatureFlags/*.json. Use !
+      to exclude files.'
+    required: true
+
+  app-configuration-endpoint:
+    description: 'Destination endpoint for the Azure App Configuration store'
+    required: true
+
+  strict:
+    description:
+      'If strict, the sync operation deletes feature flags not found in the
+      config file. Choices: true, false.'
+    required: true
+
+runs:
+  using: node20
+  main: dist/index.js

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "2.0.0",
+  "featureFlags": [
+    {
+      "id": "TestNewModel",
+      "description": "",
+      "enabled": true,
+      "variants": [
+        {
+          "name": "New-gpt-4o",
+          "configuration_value": "gpt-4o"
+        },
+        {
+          "name": "Original-gpt-4",
+          "configuration_value": "gpt-4"
+        }
+      ],
+      "allocation": {
+        "percentile": [
+          {
+            "variant": "New-gpt-4o",
+            "from": 0,
+            "to": 50
+          },
+          {
+            "variant": "Original-gpt-4",
+            "from": 50,
+            "to": 100
+          }
+        ],
+        "default_when_disabled": "Original-gpt-4"
+      },
+      "telemetry": {
+        "enabled": true
+      }
+    }
+  ]
+}

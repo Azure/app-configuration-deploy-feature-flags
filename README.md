@@ -1,5 +1,8 @@
 # Azure App Configuration Deploy Feature Flags
 
+> [!IMPORTANT] This GitHub Action is under beta release and is subject to the
+> [Azure AI Private Preview Terms - Online Experimentation](private-preview-terms.md).
+
 This GitHub Action deploys feature flags from a configuration file in your
 GitHub repository to an App Configuration store. This enables GitHub Action
 workflows where the App Configuration store is automatically updated when
@@ -80,7 +83,7 @@ jobs:
           enable-AzPSSession: true
 
       - name: Deploy App Config feature flags
-        uses: azure/app-configuration-deploy-feature-flags@v1
+        uses: azure/app-configuration-deploy-feature-flags@v1-beta
         with:
           path: /path/to/feature-flags.json
           app-configuration-endpoint: <app-configuration-endpoint>
@@ -92,7 +95,7 @@ useful in PR build.
 
 ```yaml
 - name: Validate App Config feature flags
-  uses: azure/app-configuration-deploy-feature-flags@v1
+  uses: azure/app-configuration-deploy-feature-flags@v1-beta
   with:
     path: /path/to/feature-flags.json
     app-configuration-endpoint: <app-configuration-endpoint>

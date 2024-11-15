@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import { FeatureFlag } from './feature-flag.models'
 
 export interface FeatureManagementConfig {

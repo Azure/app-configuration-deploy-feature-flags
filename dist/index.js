@@ -49942,6 +49942,8 @@ exports["default"] = _default;
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -50089,6 +50091,8 @@ async function parseConfigFile(file) {
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationError = exports.ApiError = exports.ParseError = exports.ArgumentError = void 0;
 /**
@@ -50124,6 +50128,8 @@ exports.ValidationError = ValidationError;
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -50184,6 +50190,8 @@ const getAppConfigKey = (featureFlagId) => {
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -50289,6 +50297,8 @@ function getOperationType() {
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -50343,6 +50353,8 @@ async function run() {
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -50413,6 +50425,8 @@ exports.getFlagsToDelete = getFlagsToDelete;
 
 "use strict";
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deepEqualCheck = void 0;
 const deepEqualCheck = (obj1, obj2) => {
@@ -77103,10 +77117,9 @@ var __webpack_exports__ = {};
 "use strict";
 var exports = __webpack_exports__;
 
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-/**
- * The entrypoint for the action.
- */
 const main_1 = __nccwpck_require__(1730);
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (0, main_1.run)();

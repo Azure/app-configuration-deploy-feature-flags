@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 export interface FeatureListResponse {
   items: FeatureFlagResponse[]
   etag: string

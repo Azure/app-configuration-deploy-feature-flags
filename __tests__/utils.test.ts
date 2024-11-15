@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import { deepEqualCheck } from '../src/utils'
 
 describe('deepEqual function', () => {

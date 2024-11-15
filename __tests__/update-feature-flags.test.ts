@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import * as core from '@actions/core'
 import { Input } from '../src/models/models'
 import { FeatureListResponse } from '../src/models/api-response.models'

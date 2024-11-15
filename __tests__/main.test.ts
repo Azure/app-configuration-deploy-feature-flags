@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import { run } from '../src/main'
 import * as core from '@actions/core'
 import { getActionInput } from '../src/input'

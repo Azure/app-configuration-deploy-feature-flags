@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import * as core from '@actions/core'
 import * as glob from '@actions/glob'
 import { ArgumentError, ParseError, ValidationError } from './errors'

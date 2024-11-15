@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import { ArgumentError } from './errors'
 import * as core from '@actions/core'
 import { Input } from './models/models'

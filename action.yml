@@ -16,11 +16,13 @@ inputs:
     required: true
 
   app-configuration-endpoint:
-    description: 'Destination endpoint for the Azure App Configuration store'
+    description: 'Destination endpoint for the Azure App Configuration store.'
     required: false
 
-  app-config-label:
-    description: 'Label for the config'
+  label:
+    description:
+      'Azure App Configuration label to apply to the feature flags. If not
+      specficed, the default is no label.'
     required: false
     default: None
 
@@ -28,7 +30,7 @@ inputs:
     description:
       'Possible values: validate or deploy - deploy by default. validate: only
       validates the configuration file. deploy: deploys the feature flags to
-      Azure App Configuration'
+      Azure App Configuration.'
     required: false
     default: 'deploy'
 

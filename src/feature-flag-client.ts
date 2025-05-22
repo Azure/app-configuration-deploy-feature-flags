@@ -17,7 +17,7 @@ export const listFeatureFlags = async (
   label: string
 ): Promise<FeatureListResponse> => {
   const response = await axios.get<FeatureListResponse>(
-    `${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${label}`,
+    `${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     { headers: await getHeaders(appConfigEndpoint) }
   )
 

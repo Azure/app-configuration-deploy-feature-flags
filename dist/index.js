@@ -50140,7 +50140,7 @@ const identity_1 = __nccwpck_require__(3983);
 const errors_1 = __nccwpck_require__(3916);
 const apiVersion = '2023-11-01';
 const listFeatureFlags = async (appConfigEndpoint, label) => {
-    const response = await axios_1.default.get(`${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${label}`, { headers: await getHeaders(appConfigEndpoint) });
+    const response = await axios_1.default.get(`${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${encodeURIComponent(label)}`, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to list feature flags: ${response.status} - ${response.statusText}`);
     }
@@ -50152,14 +50152,14 @@ const createOrUpdateFeatureFlag = async (appConfigEndpoint, featureFlagId, value
         content_type: 'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',
         value: JSON.stringify(value)
     };
-    const response = await axios_1.default.put(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${label}`, payload, { headers: await getHeaders(appConfigEndpoint) });
+    const response = await axios_1.default.put(`${appConfigEndpoint}/kv/${getAppConfigKey(encodeURIComponent(featureFlagId))}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`, payload, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to create or update feature flag: ${response.status} - ${response.statusText}`);
     }
 };
 exports.createOrUpdateFeatureFlag = createOrUpdateFeatureFlag;
 const deleteFeatureFlag = async (appConfigEndpoint, featureFlagId, label) => {
-    const response = await axios_1.default.delete(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${label}`, { headers: await getHeaders(appConfigEndpoint) });
+    const response = await axios_1.default.delete(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to delete feature flag: ${response.status} - ${response.statusText} - ${response.data}`);
     }

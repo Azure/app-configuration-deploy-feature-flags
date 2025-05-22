@@ -140,7 +140,7 @@ describe('Feature Flag Client', () => {
   it('should delete feature flag', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
-    const label = 'test-label'
+    const label = 'test label/with special&chars'
 
     const getMock = jest.spyOn(axios, 'delete').mockResolvedValue({
       status: 200
@@ -148,7 +148,7 @@ describe('Feature Flag Client', () => {
 
     await deleteFeatureFlag(appConfigEndpoint, featureFlagId, label)
     expect(getMock).toBeCalledWith(
-      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test-label`,
+      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test%20label%2Fwith%20special%26chars`,
       {
         headers: {
           Accept: '*/*',

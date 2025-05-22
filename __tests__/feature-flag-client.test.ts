@@ -54,7 +54,40 @@ describe('Feature Flag Client', () => {
     )
   })
 
-  it('create or update feature flag', async () => {
+  it('can create or update feature flag', async () => {
+    const appConfigEndpoint = 'https://example.com'
+    const featureFlagId = 'featureFlagId1'
+    const label = ''
+    const value = getDummyFeatureFlagItem(featureFlagId)
+
+    const getMock = jest.spyOn(axios, 'put').mockResolvedValue({
+      status: 200
+    })
+
+    await createOrUpdateFeatureFlag(
+      appConfigEndpoint,
+      featureFlagId,
+      value,
+      label
+    )
+    expect(getMock).toBeCalledWith(
+      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=`,
+      {
+        content_type:
+          'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',
+        value: JSON.stringify(value)
+      },
+      {
+        headers: {
+          Accept: '*/*',
+          Authorization: 'Bearer token',
+          'Content-Type': 'application/vnd.microsoft.appconfig.kv+json'
+        }
+      }
+    )
+  })
+
+  it('can create or update feature flag with non-empty label', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
     const label = 'test-label'

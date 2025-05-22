@@ -17,7 +17,8 @@ export const updateFeatureFlags = async (
   config: FeatureFlag[]
 ): Promise<void> => {
   const existingFeatureListResponse = await listFeatureFlags(
-    input.appConfigEndpoint
+    input.appConfigEndpoint,
+    input.label
   )
   const updatedFeatureFlags = getUpdatedFeatureFlags(
     config,
@@ -28,7 +29,8 @@ export const updateFeatureFlags = async (
     createOrUpdateFeatureFlag(
       input.appConfigEndpoint,
       featureFlag.id,
-      featureFlag
+      featureFlag,
+      input.label
     )
   )
 
@@ -41,7 +43,7 @@ export const updateFeatureFlags = async (
 
     core.info(`Deleting ${flagsToDelete.length} feature flags`)
     const deletePromises = flagsToDelete.map(flag =>
-      deleteFeatureFlag(input.appConfigEndpoint, flag.id)
+      deleteFeatureFlag(input.appConfigEndpoint, flag.id, input.label)
     )
     await Promise.all(deletePromises)
   } else {

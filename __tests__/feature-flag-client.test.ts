@@ -27,12 +27,13 @@ describe('Feature Flag Client', () => {
 
   it('should list feature flags', async () => {
     const appConfigEndpoint = 'https://example.com'
+    const label = 'test-label'
     const getMock = jest.spyOn(axios, 'get').mockResolvedValue({
       status: 200,
       data: featureListResponse
     })
 
-    const results = await listFeatureFlags(appConfigEndpoint)
+    const results = await listFeatureFlags(appConfigEndpoint, label)
     expect(results.items.length).toEqual(1)
     expect(results.items[0].key).toEqual(
       '.appconfig.featureflag/featureFlagId1'
@@ -41,27 +42,36 @@ describe('Feature Flag Client', () => {
 
   it('should throw error when list api fails', async () => {
     const appConfigEndpoint = 'https://example.com'
+    const label = 'test-label'
 
     const getMock = jest.spyOn(axios, 'get').mockResolvedValue({
       status: 500,
       statusText: 'Internal Server Error'
     })
 
-    await expect(listFeatureFlags(appConfigEndpoint)).rejects.toThrow(ApiError)
+    await expect(listFeatureFlags(appConfigEndpoint, label)).rejects.toThrow(
+      ApiError
+    )
   })
 
   it('create or update feature flag', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
+    const label = 'test-label'
     const value = getDummyFeatureFlagItem(featureFlagId)
 
     const getMock = jest.spyOn(axios, 'put').mockResolvedValue({
       status: 200
     })
 
-    await createOrUpdateFeatureFlag(appConfigEndpoint, featureFlagId, value)
+    await createOrUpdateFeatureFlag(
+      appConfigEndpoint,
+      featureFlagId,
+      value,
+      label
+    )
     expect(getMock).toBeCalledWith(
-      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01`,
+      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test-label`,
       {
         content_type:
           'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',
@@ -80,6 +90,7 @@ describe('Feature Flag Client', () => {
   it('should throw error when create or update feature flag fails', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
+    const label = 'test-label'
     const value = getDummyFeatureFlagItem(featureFlagId)
 
     const getMock = jest.spyOn(axios, 'put').mockResolvedValue({
@@ -88,21 +99,22 @@ describe('Feature Flag Client', () => {
     })
 
     await expect(
-      createOrUpdateFeatureFlag(appConfigEndpoint, featureFlagId, value)
+      createOrUpdateFeatureFlag(appConfigEndpoint, featureFlagId, value, label)
     ).rejects.toThrow(ApiError)
   })
 
   it('should delete feature flag', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
+    const label = 'test-label'
 
     const getMock = jest.spyOn(axios, 'delete').mockResolvedValue({
       status: 200
     })
 
-    await deleteFeatureFlag(appConfigEndpoint, featureFlagId)
+    await deleteFeatureFlag(appConfigEndpoint, featureFlagId, label)
     expect(getMock).toBeCalledWith(
-      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01`,
+      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test-label`,
       {
         headers: {
           Accept: '*/*',
@@ -116,13 +128,14 @@ describe('Feature Flag Client', () => {
   it('should throw error when delete feature flag fails', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
+    const label = 'test-label'
 
     const getMock = jest.spyOn(axios, 'delete').mockResolvedValue({
       status: 500
     })
 
     await expect(
-      deleteFeatureFlag(appConfigEndpoint, featureFlagId)
+      deleteFeatureFlag(appConfigEndpoint, featureFlagId, label)
     ).rejects.toThrow(ApiError)
   })
 

@@ -14,6 +14,7 @@ export interface Input {
   strictSync: boolean
   appConfigEndpoint: string
   operation: string
+  label: string
 }
 
 export interface ApiResponse {

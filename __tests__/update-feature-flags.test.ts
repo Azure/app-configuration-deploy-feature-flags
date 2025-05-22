@@ -53,7 +53,8 @@ describe('updateFeatureFlags', () => {
     expect(createOrUpdateFeatureFlag).toHaveBeenCalledWith(
       input.appConfigEndpoint,
       'featureFlagId2',
-      configs[1]
+      configs[1],
+      'test-label'
     )
     expect(infoMock).toHaveBeenCalledWith('Updated 1 feature flags')
   })
@@ -81,7 +82,8 @@ describe('updateFeatureFlags', () => {
     expect(createOrUpdateFeatureFlag).toHaveBeenCalledWith(
       input.appConfigEndpoint,
       'featureFlagId2',
-      configs[1]
+      configs[1],
+      'test-label'
     )
     expect(infoMock).toHaveBeenCalledWith('Updated 1 feature flags')
     expect(infoMock).toHaveBeenCalledWith(
@@ -90,7 +92,8 @@ describe('updateFeatureFlags', () => {
     expect(deleteFeatureFlag).toHaveBeenCalledTimes(1)
     expect(deleteFeatureFlag).toHaveBeenCalledWith(
       input.appConfigEndpoint,
-      'featureFlagId3'
+      'featureFlagId3',
+      'test-label'
     )
   })
 
@@ -99,7 +102,8 @@ describe('updateFeatureFlags', () => {
       configFile: 'configFile',
       strictSync: false,
       appConfigEndpoint: 'https://example.com',
-      operation: 'deploy'
+      operation: 'deploy',
+      label: 'test-label'
     }
   }
 

@@ -19,6 +19,11 @@ inputs:
     description: 'Destination endpoint for the Azure App Configuration store'
     required: false
 
+  app-config-label:
+    description: 'Label for the config'
+    required: false
+    default: None
+
   operation: # Validate the configuration file only
     description:
       'Possible values: validate or deploy - deploy by default. validate: only

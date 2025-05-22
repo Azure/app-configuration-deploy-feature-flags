@@ -12,14 +12,16 @@ export function getActionInput(): Input {
       configFile: getRequiredInputString('path'),
       strictSync: false, // In validate mode, strict sync is not required
       appConfigEndpoint: '', // In validate mode, app config endpoint is not required
-      operation: operation
+      operation: operation,
+      label: getNonRequiredInputString('label') || ''
     }
   }
   return {
     configFile: getRequiredInputString('path'),
     strictSync: getRequiredBooleanInput('strict'),
     appConfigEndpoint: getAppConfigEndpoint(),
-    operation: getOperationType()
+    operation: getOperationType(),
+    label: getNonRequiredInputString('label') || ''
   }
 }
 

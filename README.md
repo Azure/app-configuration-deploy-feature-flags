@@ -36,14 +36,16 @@ path: |
   !/path/to/feature-flags-ignore.json
 ```
 
-- `app-configuration-endpoint` - An Azure app configuration endpoint eg..
+- `app-configuration-endpoint` - An Azure app configuration endpoint. E.g.
   `https://<app-configuration-name>.azconfig.io`
-- `strict` - If strict, the sync operation deletes feature flags not found in
-  the config file. Choices: true, false.
-- `operation` - [optional] Possible values: validate or deploy - deploy by
-  default. validate: only validates the configuration file. deploy: deploys the
-  feature flags to Azure App Configuration deploy: Updates the Azure App
-  configuration
+- `label` - [optional] Azure App Configuration label to apply to the feature
+  flags. If not specficed, the default is no label.
+- `operation` - [optional] Possible values: `validate` or `deploy` - `deploy` by
+  default. `validate`: only validates the configuration file. `deploy`: deploys
+  the feature flags to Azure App Configuration
+- `strict` - Choices: `true` or `false`. If strict, the operation deletes
+  feature flags not found in the configuration file. Required when operation is
+  `deploy`.
 
 ### Example workflow
 

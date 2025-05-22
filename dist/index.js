@@ -50139,27 +50139,27 @@ const axios_1 = __importDefault(__nccwpck_require__(7269));
 const identity_1 = __nccwpck_require__(3983);
 const errors_1 = __nccwpck_require__(3916);
 const apiVersion = '2023-11-01';
-const listFeatureFlags = async (appConfigEndpoint) => {
-    const response = await axios_1.default.get(`${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}`, { headers: await getHeaders(appConfigEndpoint) });
+const listFeatureFlags = async (appConfigEndpoint, label) => {
+    const response = await axios_1.default.get(`${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${encodeURIComponent(label)}`, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to list feature flags: ${response.status} - ${response.statusText}`);
     }
     return response.data;
 };
 exports.listFeatureFlags = listFeatureFlags;
-const createOrUpdateFeatureFlag = async (appConfigEndpoint, featureFlagId, value) => {
+const createOrUpdateFeatureFlag = async (appConfigEndpoint, featureFlagId, value, label) => {
     const payload = {
         content_type: 'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',
         value: JSON.stringify(value)
     };
-    const response = await axios_1.default.put(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}`, payload, { headers: await getHeaders(appConfigEndpoint) });
+    const response = await axios_1.default.put(`${appConfigEndpoint}/kv/${getAppConfigKey(encodeURIComponent(featureFlagId))}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`, payload, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to create or update feature flag: ${response.status} - ${response.statusText}`);
     }
 };
 exports.createOrUpdateFeatureFlag = createOrUpdateFeatureFlag;
-const deleteFeatureFlag = async (appConfigEndpoint, featureFlagId) => {
-    const response = await axios_1.default.delete(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}`, { headers: await getHeaders(appConfigEndpoint) });
+const deleteFeatureFlag = async (appConfigEndpoint, featureFlagId, label) => {
+    const response = await axios_1.default.delete(`${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`, { headers: await getHeaders(appConfigEndpoint) });
     if (response.status >= 400) {
         throw new errors_1.ApiError(`Failed to delete feature flag: ${response.status} - ${response.statusText} - ${response.data}`);
     }
@@ -50226,14 +50226,16 @@ function getActionInput() {
             configFile: getRequiredInputString('path'),
             strictSync: false, // In validate mode, strict sync is not required
             appConfigEndpoint: '', // In validate mode, app config endpoint is not required
-            operation: operation
+            operation: operation,
+            label: getNonRequiredInputString('label') || ''
         };
     }
     return {
         configFile: getRequiredInputString('path'),
         strictSync: getRequiredBooleanInput('strict'),
         appConfigEndpoint: getAppConfigEndpoint(),
-        operation: getOperationType()
+        operation: getOperationType(),
+        label: getNonRequiredInputString('label') || ''
     };
 }
 function getAppConfigEndpoint() {
@@ -50384,16 +50386,16 @@ const feature_flag_client_1 = __nccwpck_require__(9438);
 const utils_1 = __nccwpck_require__(1798);
 const core = __importStar(__nccwpck_require__(7484));
 const updateFeatureFlags = async (input, config) => {
-    const existingFeatureListResponse = await (0, feature_flag_client_1.listFeatureFlags)(input.appConfigEndpoint);
+    const existingFeatureListResponse = await (0, feature_flag_client_1.listFeatureFlags)(input.appConfigEndpoint, input.label);
     const updatedFeatureFlags = (0, exports.getUpdatedFeatureFlags)(config, existingFeatureListResponse);
-    const promises = updatedFeatureFlags.map(featureFlag => (0, feature_flag_client_1.createOrUpdateFeatureFlag)(input.appConfigEndpoint, featureFlag.id, featureFlag));
+    const promises = updatedFeatureFlags.map(featureFlag => (0, feature_flag_client_1.createOrUpdateFeatureFlag)(input.appConfigEndpoint, featureFlag.id, featureFlag, input.label));
     await Promise.all(promises);
     core.info(`Updated ${updatedFeatureFlags.length} feature flags`);
     if (input.strictSync) {
         core.info('Strict sync enabled. Deleting flags that are not in the config');
         const flagsToDelete = (0, exports.getFlagsToDelete)(config, existingFeatureListResponse);
         core.info(`Deleting ${flagsToDelete.length} feature flags`);
-        const deletePromises = flagsToDelete.map(flag => (0, feature_flag_client_1.deleteFeatureFlag)(input.appConfigEndpoint, flag.id));
+        const deletePromises = flagsToDelete.map(flag => (0, feature_flag_client_1.deleteFeatureFlag)(input.appConfigEndpoint, flag.id, input.label));
         await Promise.all(deletePromises);
     }
     else {

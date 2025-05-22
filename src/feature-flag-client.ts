@@ -13,10 +13,11 @@ import { FeatureFlag } from './models/feature-flag.models'
 const apiVersion = '2023-11-01'
 
 export const listFeatureFlags = async (
-  appConfigEndpoint: string
+  appConfigEndpoint: string,
+  label: string
 ): Promise<FeatureListResponse> => {
   const response = await axios.get<FeatureListResponse>(
-    `${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}`,
+    `${appConfigEndpoint}/kv?key=.appconfig.featureflag*&api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     { headers: await getHeaders(appConfigEndpoint) }
   )
 
@@ -32,14 +33,15 @@ export const listFeatureFlags = async (
 export const createOrUpdateFeatureFlag = async (
   appConfigEndpoint: string,
   featureFlagId: string,
-  value: FeatureFlag
+  value: FeatureFlag,
+  label: string
 ): Promise<void> => {
   const payload: FeatureFlagResponse = {
     content_type: 'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',
     value: JSON.stringify(value)
   }
   const response = await axios.put(
-    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}`,
+    `${appConfigEndpoint}/kv/${getAppConfigKey(encodeURIComponent(featureFlagId))}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     payload,
     { headers: await getHeaders(appConfigEndpoint) }
   )
@@ -53,10 +55,11 @@ export const createOrUpdateFeatureFlag = async (
 
 export const deleteFeatureFlag = async (
   appConfigEndpoint: string,
-  featureFlagId: string
+  featureFlagId: string,
+  label: string
 ): Promise<void> => {
   const response = await axios.delete(
-    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}`,
+    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     { headers: await getHeaders(appConfigEndpoint) }
   )
 

@@ -95,3 +95,12 @@ jobs:
             !TestData/feature-flags3.json
           app-configuration-endpoint: ${{ vars.APP_CONFIGURATION_ENDPOINT }}
           strict: true
+
+      - name: Test Local Action with label
+        id: test-action-label
+        uses: ./
+        with:
+          path: TestData/*.json
+          app-configuration-endpoint: ${{ vars.APP_CONFIGURATION_ENDPOINT }}
+          strict: true
+          label: test label

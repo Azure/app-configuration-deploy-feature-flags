@@ -25,7 +25,8 @@ describe('getActionInput', () => {
       configFile: 'configFile',
       strictSync: true,
       appConfigEndpoint: 'https://example.com',
-      operation: 'deploy'
+      operation: 'deploy',
+      label: ''
     })
   })
 
@@ -38,7 +39,8 @@ describe('getActionInput', () => {
       configFile: 'configFile',
       strictSync: false, // doesn't matter in validate mode
       appConfigEndpoint: '', // doesn't matter in validate mode
-      operation: 'validate'
+      operation: 'validate',
+      label: ''
     })
   })
 

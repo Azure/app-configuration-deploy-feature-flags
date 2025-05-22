@@ -41,7 +41,7 @@ export const createOrUpdateFeatureFlag = async (
     value: JSON.stringify(value)
   }
   const response = await axios.put(
-    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${label}`,
+    `${appConfigEndpoint}/kv/${getAppConfigKey(encodeURIComponent(featureFlagId))}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     payload,
     { headers: await getHeaders(appConfigEndpoint) }
   )
@@ -59,7 +59,7 @@ export const deleteFeatureFlag = async (
   label: string
 ): Promise<void> => {
   const response = await axios.delete(
-    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${label}`,
+    `${appConfigEndpoint}/kv/${getAppConfigKey(featureFlagId)}?api-version=${apiVersion}&label=${encodeURIComponent(label)}`,
     { headers: await getHeaders(appConfigEndpoint) }
   )
 

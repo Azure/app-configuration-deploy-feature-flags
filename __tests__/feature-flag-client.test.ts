@@ -87,10 +87,11 @@ describe('Feature Flag Client', () => {
     )
   })
 
-  it('can create or update feature flag with non-empty label', async () => {
+  it('can create or update feature flag with label', async () => {
     const appConfigEndpoint = 'https://example.com'
     const featureFlagId = 'featureFlagId1'
-    const label = 'test-label'
+    // Use a label with special characters to test URL encoding
+    const label = 'test label/with special&chars'
     const value = getDummyFeatureFlagItem(featureFlagId)
 
     const getMock = jest.spyOn(axios, 'put').mockResolvedValue({
@@ -104,7 +105,7 @@ describe('Feature Flag Client', () => {
       label
     )
     expect(getMock).toBeCalledWith(
-      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test-label`,
+      `${appConfigEndpoint}/kv/.appconfig.featureflag%2FfeatureFlagId1?api-version=2023-11-01&label=test%20label%2Fwith%20special%26chars`,
       {
         content_type:
           'application/vnd.microsoft.appconfig.ff+json;charset=utf-8',

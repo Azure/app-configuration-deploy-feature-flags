@@ -80,7 +80,7 @@ const getHeaders = async (appConfigEndpoint: string) => {
 }
 
 const getToken = async (appConfigEndpoint: string) => {
-  const credential = new DefaultAzureCredential()
+  const credential = new DefaultAzureCredential() // CodeQL [SM05138] GitHub actions will run in a clean environment each time, no one can inject malicious credentials.
   const token = await credential.getToken(`${appConfigEndpoint}/.default`)
   return token.token
 }
